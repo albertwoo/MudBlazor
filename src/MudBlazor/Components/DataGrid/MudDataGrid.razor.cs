@@ -1009,6 +1009,12 @@ namespace MudBlazor
         public Task ClearFiltersAsync()
         {
             FilterDefinitions.Clear();
+
+            foreach (var column in RenderedColumns)
+            {
+                column.FilterContext.FilterDefinition = null;
+            }
+
             return InvokeServerLoadFunc();
         }
 
