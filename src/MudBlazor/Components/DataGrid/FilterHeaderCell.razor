@@ -10,7 +10,7 @@
     <th scope="col" class="@_classname" style="@_style" colspan="@Column?.HeaderColSpan" @attributes="@UserAttributes">
         @if (Column.filterable && Column.FilterTemplate != null)
         {
-            @Column.FilterTemplate(Column.FilterContext) 
+            @Column.FilterTemplate(Column) 
         }
         else if (Column.filterable)
         {
@@ -64,7 +64,9 @@
                         }
                     }
                 </MudMenu>
-                <MudIconButton Class="align-self-center" Icon="@Icons.Material.Filled.FilterAltOff" Size="@Size.Small" OnClick="@ClearFilterAsync"></MudIconButton>
+                @if (Column.FilterContext.FilterDefinition.Value != null) {
+                    <MudIconButton Class="align-self-center" Icon="@Icons.Material.Filled.FilterAltOff" Size="@Size.Small" OnClick="@ClearFilterAsync"></MudIconButton>
+                }
             </MudStack>      
         }
     </th>
