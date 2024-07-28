@@ -127,7 +127,7 @@ namespace MudBlazor
 
         [Parameter] public bool StickyRight { get; set; }
 
-        [Parameter] public RenderFragment<FilterContext<T>> FilterTemplate { get; set; }
+        [Parameter] public RenderFragment<Column<T>> FilterTemplate { get; set; }
 
         public string Identifier { get; set; }
 
