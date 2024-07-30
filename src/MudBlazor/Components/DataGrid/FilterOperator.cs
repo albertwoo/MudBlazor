@@ -19,6 +19,10 @@ namespace MudBlazor
             public const string EndsWith = "ends with";
             public const string Empty = "is empty";
             public const string NotEmpty = "is not empty";
+            public const string GreaterThan = ">";
+            public const string GreaterThanOrEqual = ">=";
+            public const string LessThan = "<";
+            public const string LessThanOrEqual = "<=";
         }
 
         public static class Number
@@ -82,6 +86,10 @@ namespace MudBlazor
                     String.EndsWith,
                     String.Empty,
                     String.NotEmpty,
+                    String.GreaterThan,
+                    String.GreaterThanOrEqual,
+                    String.LessThan,
+                    String.LessThanOrEqual,
                 };
             }
             if (fieldType.IsNumber)
