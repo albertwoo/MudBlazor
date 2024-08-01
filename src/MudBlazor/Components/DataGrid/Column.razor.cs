@@ -387,6 +387,19 @@ namespace MudBlazor
                 DataGrid.RemoveColumn(this);
         }
 
+        public double? Width
+        {
+            get { return HeaderCell?.Width; }
+            set
+            {
+                if (HeaderCell != null)
+                {
+                    HeaderCell.Width = value;
+                    ((IMudStateHasChanged)HeaderCell).StateHasChanged();
+                }
+            }
+        }
+
 
         #region Abstract Members
 

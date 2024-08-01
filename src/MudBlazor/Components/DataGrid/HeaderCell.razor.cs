@@ -287,6 +287,7 @@ namespace MudBlazor
             if (finishResize)
             {
                 _isResizing = false;
+                DataGrid?.ResizeColumnFinished?.Invoke();
                 await InvokeAsync(StateHasChanged);
             }
 
