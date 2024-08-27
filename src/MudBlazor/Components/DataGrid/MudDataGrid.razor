@@ -483,6 +483,7 @@
             }
             @if (column is null)
             {
+                var operators = column.Operators ?? FilterOperator.GetOperatorByDataType(fieldType);
                 <MudGrid Spacing="0">
                     <MudItem xs="1" Class="d-flex">
                         <MudIconButton Class="remove-filter-button" Icon="@Icons.Material.Filled.Close" OnClick="@filter.RemoveFilterAsync" Size="@Size.Small" Style="align-self: flex-end"></MudIconButton>
@@ -499,7 +500,7 @@
                     <MudItem xs="3">
                         <MudSelect @bind-Value="filterDefinition.Operator" FullWidth="true" Label="@Localizer["MudDataGrid.Operator"]" Dense="true" Margin="@Margin.Dense"
                                    Class="filter-operator">
-                            @foreach (var fieldOperator in FilterOperator.GetOperatorByDataType(fieldType))
+                            @foreach (var fieldOperator in operators)
                             {
                                 <MudSelectItem Value="@fieldOperator">@Localizer[$"MudDataGrid.{fieldOperator}"]</MudSelectItem>
                             }
@@ -538,14 +539,25 @@
                         }
                         else if (fieldType.IsDateTime && !(filterDefinition.Operator ?? "").EndsWith("empty"))
                         {
-                            <MudGrid Spacing="0">
-                                <MudItem xs="7">
-                                    <MudDatePicker Date="@filter._valueDate" DateChanged="@filter.DateValueChanged" Margin="@Margin.Dense" Class="filter-input-date"/>
-                                </MudItem>
-                                <MudItem xs="5">
-                                    <MudTimePicker Time="@filter._valueTime" TimeChanged="@filter.TimeValueChanged" Margin="@Margin.Dense" Class="filter-input-time"/>
-                                </MudItem>
-                            </MudGrid>
+                            @if (!column.DateOnly.HasValue)
+                            {
+                                <MudGrid Spacing="0">
+                                    <MudItem xs="7">
+                                        <MudDatePicker Date="@filter._valueDate" DateChanged="@filter.DateValueChanged" Margin="@Margin.Dense" Class="filter-input-date"/>
+                                    </MudItem>
+                                    <MudItem xs="5">
+                                        <MudTimePicker Time="@filter._valueTime" TimeChanged="@filter.TimeValueChanged" Margin="@Margin.Dense" Class="filter-input-time"/>
+                                    </MudItem>
+                                </MudGrid>
+                            }
+                            else if (column.DateOnly.Value)
+                            {
+                                <MudDatePicker Date="@filter._valueDate" DateChanged="@filter.DateValueChanged" Margin="@Margin.Dense" Class="filter-input-date"/>
+                            }
+                            else
+                            {
+                                <MudTimePicker Time="@filter._valueTime" TimeChanged="@filter.TimeValueChanged" Margin="@Margin.Dense" Class="filter-input-time"/>
+                            }
                         }
                         else if (fieldType.IsGuid)
                         {

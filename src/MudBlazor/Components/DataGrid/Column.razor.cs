@@ -48,6 +48,16 @@ namespace MudBlazor
         [Parameter] public Func<T, object> GroupBy { get; set; }
         [Parameter] public bool Required { get; set; } = true;
 
+        /// <summary>
+        /// This is used to overwrite default operators
+        /// </summary>
+        [Parameter] public IEnumerable<string> Operators { get; set; } = null;
+
+        /// <summary>
+        /// When filter is used, this can be used to switch the date filter to display date only(true), time only(false) or datetime(null)
+        /// </summary>
+        [Parameter] public Nullable<bool> DateOnly { get; set; } = true;
+
         #region HeaderCell Properties
 
         [Parameter] public string HeaderClass { get; set; }
@@ -254,15 +264,21 @@ namespace MudBlazor
         {
             get
             {
+                var operators = Operators ?? FilterOperator.GetOperatorByDataType(PropertyType);
+
                 // Make sure that when we access filterContext properties, they have been defined...
                 if (filterContext.FilterDefinition == null)
                 {
-                    var operators = FilterOperator.GetOperatorByDataType(PropertyType);
                     var filterDefinition = DataGrid.CreateFilterDefinitionInstance();
                     filterDefinition.Title = Title;
                     filterDefinition.Operator = operators.FirstOrDefault();
                     filterDefinition.Column = this;
                     filterContext.FilterDefinition = filterDefinition;
+                }
+
+                if (!operators.Contains(filterContext.FilterDefinition.Operator))
+                {
+                    filterContext.FilterDefinition.Operator = operators.FirstOrDefault();
                 }
 
                 return filterContext;

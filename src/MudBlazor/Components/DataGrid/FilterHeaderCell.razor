@@ -46,24 +46,38 @@
                 }
                 else if (fieldType.IsDateTime && !(_operator ?? "").EndsWith("empty"))
                 {
-                    <MudGrid Spacing="0">
-                        <MudItem xs="7">
-                            <MudDatePicker Date="@_valueDate" DateChanged="@DateValueChangedAsync" Margin="@Margin.Dense"/>
-                        </MudItem>
-                        <MudItem xs="5">
-                            <MudTimePicker Time="@_valueTime" TimeChanged="@TimeValueChangedAsync" Margin="@Margin.Dense"/>
-                        </MudItem>
-                    </MudGrid>
-                }
-                <MudMenu Icon="@Icons.Material.Filled.FilterAlt" Size="@Size.Small" Dense="true">
-                    @foreach (var o in operators)
+                    @if (!Column.DateOnly.HasValue)
                     {
-                        if (!string.IsNullOrWhiteSpace(o))
-                        {
-                            <MudMenuItem Style="@chosenOperatorStyle(o)" OnClick="@(async () => await ChangeOperatorAsync(o))">@Localizer[$"MudDataGrid.{o}"]</MudMenuItem>
-                        }
+                        <MudGrid Spacing="0">
+                            <MudItem xs="7">
+                                <MudDatePicker Date="@_valueDate" DateChanged="@DateValueChangedAsync" Margin="@Margin.Dense"/>
+                            </MudItem>
+                            <MudItem xs="5">
+                                <MudTimePicker Time="@_valueTime" TimeChanged="@TimeValueChangedAsync" Margin="@Margin.Dense"/>
+                            </MudItem>
+                        </MudGrid>
                     }
-                </MudMenu>
+                    else if (Column.DateOnly.Value)
+                    {
+                        <MudDatePicker Date="@_valueDate" DateChanged="@DateValueChangedAsync" Margin="@Margin.Dense" />
+                    }
+                    else
+                    {
+                        <MudTimePicker Time="@_valueTime" TimeChanged="@TimeValueChangedAsync" Margin="@Margin.Dense" />
+                    }
+                }
+                @if (operators.Count() > 1)
+                {
+                    <MudMenu Icon="@Icons.Material.Filled.FilterAlt" Size="@Size.Small" Dense="true">
+                        @foreach (var o in operators)
+                        {
+                            if (!string.IsNullOrWhiteSpace(o))
+                            {
+                                <MudMenuItem Style="@chosenOperatorStyle(o)" OnClick="@(async () => await ChangeOperatorAsync(o))">@Localizer[$"MudDataGrid.{o}"]</MudMenuItem>
+                            }
+                        }
+                    </MudMenu>
+                }
                 @if (Column.FilterContext.FilterDefinition.Value != null) {
                     <MudIconButton Class="align-self-center" Icon="@Icons.Material.Filled.FilterAltOff" Size="@Size.Small" OnClick="@ClearFilterAsync"></MudIconButton>
                 }
