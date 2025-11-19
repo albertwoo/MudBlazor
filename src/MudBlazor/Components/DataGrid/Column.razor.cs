@@ -348,7 +348,7 @@ namespace MudBlazor
         /// The template used to display this column's filter.
         /// </summary>
         [Parameter]
-        public RenderFragment<FilterContext<T>> FilterTemplate { get; set; }
+        public RenderFragment<Column<T>> FilterTemplate { get; set; }
 
         /// <summary>
         /// The operators to use for this column's filter.
