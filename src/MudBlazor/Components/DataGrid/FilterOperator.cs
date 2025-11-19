@@ -60,6 +60,26 @@ namespace MudBlazor
             /// Find text which is not null, empty, or whitespace.
             /// </summary>
             public const string NotEmpty = "is not empty";
+
+            /// <summary>
+            /// Find text which is greater than the filter value.
+            /// </summary>
+            public const string GreaterThan = ">";
+
+            /// <summary>
+            /// Find text which is greater than or equal to the filter value.
+            /// </summary>
+            public const string GreaterThanOrEqual = ">=";
+
+            /// <summary>
+            /// Find text which is less than the filter value.
+            /// </summary>
+            public const string LessThan = "<";
+
+            /// <summary>
+            /// Find text which is less than or equal to the filter value.
+            /// </summary>
+            public const string LessThanOrEqual = "<=";
         }
 
         /// <summary>
