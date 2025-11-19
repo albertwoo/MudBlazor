@@ -11,7 +11,7 @@
     <th scope="col" class="@Classname" style="@Stylename" colspan="@Column?.HeaderColSpan" @attributes="@UserAttributes">
         @if (Column.filterable && Column.FilterTemplate != null)
         {
-            @Column.FilterTemplate(Column.FilterContext)
+            @Column.FilterTemplate(Column)
         }
         else if (Column.filterable)
         {
