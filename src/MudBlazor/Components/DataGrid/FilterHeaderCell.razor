@@ -68,7 +68,10 @@
                             }
                         }
                     </MudMenu>
-                    <MudIconButton Class="align-self-center filter-button clear" Icon="@DataGrid.FilterIconClear" Size="@Size.Small" OnClick="@ClearFilterAsync" aria-label="@Localizer[LanguageResource.MudDataGrid_ClearFilter]"></MudIconButton>
+                    @if (Column.FilterContext.FilterDefinition.Value != null || @operator != operators.FirstOrDefault()) 
+                    {
+                        <MudIconButton Class="align-self-center filter-button clear" Icon="@DataGrid.FilterIconClear" Size="@Size.Small" OnClick="@ClearFilterAsync" aria-label="@Localizer[LanguageResource.MudDataGrid_ClearFilter]"></MudIconButton>
+                    }
                 }
             </MudStack>
         }
