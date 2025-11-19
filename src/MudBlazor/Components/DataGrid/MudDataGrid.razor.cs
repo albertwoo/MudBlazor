@@ -2490,6 +2490,8 @@ namespace MudBlazor
 
         private ElementReference _gridElement;
         private DataGridColumnResizeService<T> _resizeService;
+        
+        public Action ResizeColumnFinished { get; set; }
 
         internal DataGridColumnResizeService<T> ResizeService => _resizeService ??= new DataGridColumnResizeService<T>(this, EventListenerFactory);
 

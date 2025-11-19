@@ -430,6 +430,23 @@ namespace MudBlazor
         [Parameter]
         public RenderFragment<CellContext<T>> EditTemplate { get; set; }
 
+        /// <summary>
+        /// The width of the column.
+        /// </summary>
+        [Parameter]
+        public double? Width
+        {
+            get { return HeaderCell?.Width; }
+            set
+            {
+                if (HeaderCell != null)
+                {
+                    HeaderCell.Width = value;
+                    ((IMudStateHasChanged)HeaderCell).StateHasChanged();
+                }
+            }
+        }
+        
         #endregion
 
         #region FooterCell Properties
