@@ -381,6 +381,12 @@ namespace MudBlazor
             }
         }
 
+        /// <summary>
+        /// If the filter type is DateTime, this option can be used to control the time picker apperance
+        /// </summary>
+        [Parameter]
+        public bool ShowTimePicker { get; set; }
+
         #endregion
 
         #region Cell Properties
