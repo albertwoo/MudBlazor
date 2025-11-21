@@ -52,9 +52,12 @@
                         <MudItem xs="7">
                             <MudDatePicker Date="@valueDateTimeForPicker" DateChanged="@DateTimeValueChangedAsync" Margin="@Margin.Dense" />
                         </MudItem>
-                        <MudItem xs="5">
-                            <MudTimePicker Time="@valueTime" TimeChanged="@TimeValueChangedAsync" Margin="@Margin.Dense" />
-                        </MudItem>
+                        @if (Column.ShowTimePicker)
+                        {
+                            <MudItem xs="5">
+                                <MudTimePicker Time="@valueTime" TimeChanged="@TimeValueChangedAsync" Margin="@Margin.Dense" />
+                            </MudItem>
+                        }
                     </MudGrid>
                 }
                 @if (!Column.ShowFilterIcon.HasValue || Column.ShowFilterIcon.Value)
@@ -68,7 +71,7 @@
                             }
                         }
                     </MudMenu>
-                    @if (Column.FilterContext.FilterDefinition.Value != null || @operator != operators.FirstOrDefault()) 
+                    @if (Column.FilterContext.FilterDefinition.Value != null) 
                     {
                         <MudIconButton Class="align-self-center filter-button clear" Icon="@DataGrid.FilterIconClear" Size="@Size.Small" OnClick="@ClearFilterAsync" aria-label="@Localizer[LanguageResource.MudDataGrid_ClearFilter]"></MudIconButton>
                     }
