@@ -48,17 +48,21 @@
                 }
                 else if (fieldType.IsDateTime && !(@operator ?? "").EndsWith("empty"))
                 {
-                    <MudGrid Spacing="0">
-                        <MudItem xs="7">
-                            <MudDatePicker Date="@valueDateTimeForPicker" DateChanged="@DateTimeValueChangedAsync" Margin="@Margin.Dense" />
-                        </MudItem>
-                        @if (Column.ShowTimePicker)
-                        {
+                    @if (Column.ShowTimePicker)
+                    {
+                        <MudGrid Spacing="0">
+                            <MudItem xs="7">
+                                <MudDatePicker Date="@valueDateTimeForPicker" DateChanged="@DateTimeValueChangedAsync" Margin="@Margin.Dense" />
+                            </MudItem>
                             <MudItem xs="5">
                                 <MudTimePicker Time="@valueTime" TimeChanged="@TimeValueChangedAsync" Margin="@Margin.Dense" />
                             </MudItem>
-                        }
-                    </MudGrid>
+                        </MudGrid>
+                    }
+                    else
+                    {
+                        <MudDatePicker Date="@valueDateTimeForPicker" DateChanged="@DateTimeValueChangedAsync" Margin="@Margin.Dense" />
+                    }
                 }
                 @if (!Column.ShowFilterIcon.HasValue || Column.ShowFilterIcon.Value)
                 {
