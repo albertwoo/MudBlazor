@@ -51,6 +51,11 @@ namespace MudBlazor
                 .AddStyle(Style)
                 .Build();
 
+        private string DefaultOperator =>
+            string.IsNullOrEmpty(Column.DefaultOperator)
+            ? operators.FirstOrDefault()
+            : Column.DefaultOperator;
+
         #region Computed Properties and Functions
 
         private Type dataType
@@ -187,6 +192,7 @@ namespace MudBlazor
 
         private async Task ClearFilterAsync()
         {
+            Column.FilterContext.FilterDefinition.Operator = DefaultOperator;
             await ClearFilterAsync(Column.FilterContext.FilterDefinition);
         }
 

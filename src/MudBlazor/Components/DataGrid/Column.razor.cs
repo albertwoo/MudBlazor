@@ -387,6 +387,12 @@ namespace MudBlazor
         [Parameter]
         public bool ShowTimePicker { get; set; }
 
+        /// <summary>
+        /// If this is not provided then the first one will be used
+        /// </summary>
+        [Parameter]
+        public string DefaultOperator { get; set; }
+
         #endregion
 
         #region Cell Properties
@@ -589,7 +595,7 @@ namespace MudBlazor
                     var operators = GetFilterOperators(FieldType.Identify(PropertyType));
                     var filterDefinition = DataGrid.CreateFilterDefinitionInstance();
                     filterDefinition.Title = Title;
-                    filterDefinition.Operator = operators.FirstOrDefault();
+                    filterDefinition.Operator = string.IsNullOrEmpty(DefaultOperator) ? operators.FirstOrDefault() : DefaultOperator;
                     filterDefinition.Column = this;
                     filterContext.FilterDefinition = filterDefinition;
                 }
