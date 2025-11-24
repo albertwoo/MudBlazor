@@ -66,7 +66,7 @@
                 }
                 @if (!Column.ShowFilterIcon.HasValue || Column.ShowFilterIcon.Value)
                 {
-                    <MudMenu Class="column-filter-menu" Icon="@DataGrid.FilterIconFilled" Size="@Size.Small" Dense="true">
+                    <MudMenu Class="column-filter-menu" Icon="@DataGrid.FilterIconFilled" Size="@Size.Small" Dense="true" Color="@(@operator == DefaultOperator ? Color.Default : Color.Info)">
                         @foreach (var o in operators)
                         {
                             if (!string.IsNullOrWhiteSpace(o))
@@ -75,7 +75,7 @@
                             }
                         }
                     </MudMenu>
-                    @if (Column.FilterContext.FilterDefinition.Value != null) 
+                    @if (Column.FilterContext.FilterDefinition.Value != null || @operator != DefaultOperator) 
                     {
                         <MudIconButton Class="align-self-center filter-button clear" Icon="@DataGrid.FilterIconClear" Size="@Size.Small" OnClick="@ClearFilterAsync" aria-label="@Localizer[LanguageResource.MudDataGrid_ClearFilter]"></MudIconButton>
                     }
